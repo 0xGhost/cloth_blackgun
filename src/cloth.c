@@ -334,7 +334,16 @@ int main(int argc, char *argv[]) {
   // n_payments will increase the executing time of this block --blackgun
   begin = clock();
   simulation->current_time = 1;
+  long heap_total_length = heap_len(simulation->events);
+  int percent = 1;
   while(heap_len(simulation->events) != 0) {
+    if((heap_total_length - heap_len(simulation->events)) * 100 / heap_total_length > percent)
+    {
+      printf("%d%% ", percent++);
+      fflush(stdout);
+    }
+      
+
     event = heap_pop(simulation->events, compare_event);
     simulation->current_time = event->time;
     switch(event->type){
@@ -385,7 +394,7 @@ int main(int argc, char *argv[]) {
     post_process_payment_stats(payments);
 
   time_spent = (double) (end - begin)/CLOCKS_PER_SEC;
-  printf("Time consumed by simulation events: %lf s\n", time_spent);
+  printf("\nTime consumed by simulation events: %lf s\n", time_spent);
 
   write_output(network, payments, output_dir_name);
 
