@@ -134,5 +134,7 @@ with open(output_dir_name + 'cloth_output.json', 'w') as stats_file:
      output = OrderedDict(temp_output)
      json.dump(output, stats_file, indent=4)
 
+with open(output_dir_name + "results.txt", "a") as txtfile:
+     txtfile.write('{0:.10f}'.format(means['Success'])+"\n")
 
 print('SIMULATION OUTPUT STATS SAVED IN <' + output_dir_name + 'cloth_output.json>')

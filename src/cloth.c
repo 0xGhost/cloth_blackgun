@@ -331,6 +331,7 @@ int main(int argc, char *argv[]) {
 
   printf("EXECUTION OF THE SIMULATION\n");
   /* core of the discrete-event simulation: extract next event, advance simulation time, execute the event */
+  // n_payments will increase the executing time of this block --blackgun
   begin = clock();
   simulation->current_time = 1;
   while(heap_len(simulation->events) != 0) {
@@ -338,30 +339,39 @@ int main(int argc, char *argv[]) {
     simulation->current_time = event->time;
     switch(event->type){
     case FINDPATH:
+      //printf("\t find_path\n");
       find_path(event, simulation, network, &payments, pay_params.mpp);
       break;
     case SENDPAYMENT:
+      //printf("\t send_payment\n");
       send_payment(event, simulation, network);
       break;
     case FORWARDPAYMENT:
+      //printf("\t forward_payment\n");
       forward_payment(event, simulation, network);
       break;
     case RECEIVEPAYMENT:
+      //printf("\t receive_payment\n");
       receive_payment(event, simulation, network);
       break;
     case FORWARDSUCCESS:
+      //printf("\t forward_success\n");
       forward_success(event, simulation, network);
       break;
     case RECEIVESUCCESS:
+      //printf("\t receive_success\n");
       receive_success(event, simulation, network);
       break;
     case FORWARDFAIL:
+      //printf("\t forward_fail\n");
       forward_fail(event, simulation, network);
       break;
     case RECEIVEFAIL:
+      //printf("\t receive_fail\n");
       receive_fail(event, simulation, network);
       break;
     case OPENCHANNEL:
+      //printf("\t open_channel\n");
       open_channel(network, simulation->random_generator);
       break;
     default:

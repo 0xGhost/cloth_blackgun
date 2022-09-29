@@ -73,10 +73,7 @@ void* dijkstra_thread(void*arg) {
   while(1) {
     if(jobs == NULL) return NULL;
 
-    printf("  thread#%ld running\n", thread_args->data_index);
-    fflush(stdout);
-    printf("\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b");
-    fflush(stdout); 
+    //printf("  thread#%ld running\n", thread_args->data_index);
 
     pthread_mutex_lock(&jobs_mutex);
     jobs = pop(jobs, &data);
